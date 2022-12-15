@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Logo from '../../../assets/logo/logo.png'
 import {
     FaBars,
-    FaTimes,
+    FaTimes
 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
@@ -20,12 +20,12 @@ const Navbar = () => {
             <div>
                 <ul className='hidden md:flex'>
                     <li className=''>
-                        <Link to='home' className='hover:border-b-2 border-green-600'>
+                        <Link to='/' className='hover:border-b-2 border-green-600'>
                             Home
                         </Link>
                     </li>
                     <li>
-                        <Link to='about' className='hover:border-b-2 border-green-600'>
+                        <Link to='/signin' className='mx-10 hover:border-b-2 border-green-600'>
                             Sign In
                         </Link>
                     </li>
@@ -43,20 +43,19 @@ const Navbar = () => {
                 className={
                     !nav
                         ? 'hidden'
-                        : 'absolute top-0 left-0 w-full h-screen bg-[#0a192f] flex flex-col justify-center items-center'
+                        : 'absolute md:hidden top-0 left-0 w-full h-screen bg-[#0a192f] flex flex-col justify-center items-center'
                 }
             >
                 <div>
                     <img src={Logo} alt='Logo' style={{ width: '200px' }} />
                 </div>
                 <li className='py-4 text-2xl'>
-                    <Link onClick={handleClick} to='home'>
+                    <Link onClick={handleClick} to='/'>
                         Home
                     </Link>
                 </li>
                 <li className='py-4 text-2xl'>
-                    {' '}
-                    <Link onClick={handleClick} to='about'>
+                    <Link onClick={handleClick} to='/signin'>
                         Sign In
                     </Link>
                 </li>
