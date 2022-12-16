@@ -4,8 +4,9 @@
 /node_modules
 /.pnp
 .pnp.js
-AllPost
 AddComment
+DeleteConfirmationModal
+EditPostContentModal
 # testing
 /coverage
 
