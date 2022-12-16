@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import ForgetPasswordModal from '../ForgetPasswordModal/ForgetPasswordModal';
 
 const SignIn = () => {
-    const [showPassword, setShowPassword] = useState(false)
-    const handleToggleShowPassword = () => setShowPassword(!showPassword)
-    const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(false);
+    const [resetPassword, setResetPassword] = useState(false);
 
+    const navigate = useNavigate();
+    const handleOnClose = () => setResetPassword(false)
+    const handleToggleShowPassword = () => setShowPassword(!showPassword)
     const {
         register,
         handleSubmit,
@@ -79,13 +82,14 @@ const SignIn = () => {
                         </div>
 
                     </div>
-                    <label className='label-text text-sm cursor-pointer underline underline-offset-1'>Forget Password?</label>
+                    <label htmlFor="my-modal-3" onClick={() => setResetPassword(true)} className='label-text text-sm cursor-pointer underline underline-offset-1'>Forget Password?</label>
                     {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
                     <input type="submit" value='Login' className='mt-6 cursor-pointer font-semibold text-white w-full max-w-xs bg-green-600 hover:bg-green-700 p-2 rounded-md' />
                     <div className='text-center'>
                         <label className='label-text text-sm'>Don't have an account? <Link to='/signup' className='cursor-pointer font-semibold text-green-900 underline'>Create Account</Link></label>
                     </div>
                 </form>
+                <ForgetPasswordModal onClose={handleOnClose} visible={resetPassword} />
             </div>
         </div>
     );

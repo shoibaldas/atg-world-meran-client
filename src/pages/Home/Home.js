@@ -1,7 +1,6 @@
 import React from 'react';
 import AddPost from '../AddPost/AddPost';
 import AllPost from '../AllPost/AllPost';
-import AddComment from '../Shared/AddComment/AddComment';
 
 
 const Home = () => {
