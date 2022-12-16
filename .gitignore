@@ -5,7 +5,6 @@
 /.pnp
 .pnp.js
 AddComment
-EditPostContentModal
 # testing
 /coverage
 
