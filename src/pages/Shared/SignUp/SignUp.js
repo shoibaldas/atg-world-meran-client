@@ -1,25 +1,69 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const SignUp = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const { register, formState: { errors }, handleSubmit } = useForm();
-    const [signupError, setSignupError] = useState('');
-
+    const navigate = useNavigate();
     const handleToggleShowPassword = () => setShowPassword(!showPassword);
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        resetField,
+    } = useForm({
+        mode: "onChange",
+        defaultValues: {
+            userName: "",
+            email: "",
+            password: "",
+            confirmPassword: ""
+        },
+    });
+
+    const onSubmit = (data) => {
+        fetch("http://localhost:5000/api/v1/signup", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("Success:", data);
+                if (data.success) {
+                    localStorage.setItem("user", JSON.stringify(data.results));
+                    toast.success("Signup Successfully!");
+                    navigate("/");
+                }
+                else {
+                    toast.error("Error!");
+                }
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                navigate("/");
+            });
+
+        // reset Field
+        resetField("email");
+        resetField("password");
+    };
 
 
     return (
-        <div className='h-[700px] flex justify-center items-center'>
+        <div className='h-[500px] flex justify-center items-center'>
             <div className='max-w-lg p-7'>
                 <h2 className='text-center text-2xl mb-0 md:mb-4 font-semibold'>Sign Up</h2>
-                <form onSubmit={handleSubmit()}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <div className='flex flex-col'>
                         <div className='form-control flex flex-col w-full max-w-xs'>
                             <label className='label'><span className='label-text font-semibold'>Username <span className='text-red-500'>*</span></span></label>
-                            <input type="text" {...register("name", { required: "Email is required" })} placeholder='Your Full Name' className='rounded-md py-1 px-2 border border-gray-500' />
-                            {errors.name && <p className='text-red-600'>{errors.name?.message}</p>}
+                            <input type="text" {...register("userName", { required: "Email is required" })} placeholder='Your Full Name' className='rounded-md py-1 px-2 border border-gray-500' />
+                            {errors.userName && <p className='text-red-600'>{errors.userName?.message}</p>}
                         </div>
                         <div className='form-control flex flex-col w-full max-w-xs'>
                             <label className='label'><span className='label-text font-semibold'>Email <span className='text-red-500'>*</span></span></label>
@@ -44,12 +88,10 @@ const SignUp = () => {
                         </div>
                         <div className='relative form-control flex flex-col w-full max-w-xs'>
                             <label className='label'><span className='label-text font-semibold'>Confirm Password <span className='text-red-500'>*</span></span></label>
-                            <input type="password" {...register("password", { required: "Password is required", minLength: { value: 6, message: 'Password must be minimum 6 characters' } })} placeholder='Confirm Password' className='rounded-md py-1 px-2 border border-gray-500' />
+                            <input type="password" {...register("confirmPassword", { required: "Password is required", minLength: { value: 6, message: 'Password must be minimum 6 characters' } })} placeholder='Confirm Password' className='rounded-md py-1 px-2 border border-gray-500' />
                         </div>
                     </div>
-
                     {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
-                    {signupError && <p className='text-red-600'>{signupError}</p>}
                     <input type="submit" value='Sign up' className='mt-4 cursor-pointer font-semibold text-white w-full  bg-green-600 hover:bg-green-700 p-2 rounded-md' />
 
                     <div className='text-center'>

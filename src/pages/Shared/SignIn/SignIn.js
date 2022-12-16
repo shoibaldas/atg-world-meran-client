@@ -1,21 +1,63 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const SignIn = () => {
-    const { register, formState: { errors }, handleSubmit } = useForm();
-    const [signinError, setsigninError] = useState('')
     const [showPassword, setShowPassword] = useState(false)
     const handleToggleShowPassword = () => setShowPassword(!showPassword)
+    const navigate = useNavigate();
 
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        resetField,
+    } = useForm({
+        mode: "onChange",
+        defaultValues: {
+            email: "",
+            password: "",
+        },
+    });
+
+    const onSubmit = (data) => {
+        fetch("http://localhost:5000/api/v1/signin", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("Success:", data);
+                if (data.success) {
+                    localStorage.setItem("user", JSON.stringify(data.results));
+                    toast.success("Login Successfully!");
+                    navigate("/");
+                }
+                else {
+                    toast.error("Error!");
+                }
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                navigate("/");
+            });
+
+        // reset Field
+        resetField("email");
+        resetField("password");
+    };
 
 
 
     return (
-        <div className='h-[700px] flex justify-center items-center'>
+        <div className='h-[500px] flex justify-center items-center'>
             <div className='w-80 p-7'>
                 <h2 className='text-center text-2xl font-semibold'>Login</h2>
-                <form onSubmit={handleSubmit()}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <div className='form-control flex flex-col w-full max-w-xs'>
                         <label className='label'><span className='label-text font-semibold'>Email <span className='text-red-500'>*</span></span></label>
                         <input type="email" {...register("email", { required: "Email is required" })} placeholder='Your email' className='rounded-md mt-2 py-1 px-2 border border-gray-500' />
@@ -40,7 +82,6 @@ const SignIn = () => {
                     <label className='label-text text-sm cursor-pointer underline underline-offset-1'>Forget Password?</label>
                     {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
                     <input type="submit" value='Login' className='mt-6 cursor-pointer font-semibold text-white w-full max-w-xs bg-green-600 hover:bg-green-700 p-2 rounded-md' />
-                    {signinError && <p className='text-red-600'>{signinError}</p>}
                     <div className='text-center'>
                         <label className='label-text text-sm'>Don't have an account? <Link to='/signup' className='cursor-pointer font-semibold text-green-900 underline'>Create Account</Link></label>
                     </div>
