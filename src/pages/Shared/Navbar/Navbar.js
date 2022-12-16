@@ -1,14 +1,22 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Logo from '../../../assets/logo/logo.png'
 import {
     FaBars,
     FaTimes
 } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../context/AuthProvider';
 
 const Navbar = () => {
+    const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
     const [nav, setNav] = useState(false);
     const handleClick = () => setNav(!nav);
+
+    const handleLogout = () => {
+        localStorage.removeItem("user");
+        navigate("/");
+    };
 
     return (
         <div className='w-full h-[60px] flex justify-between items-center px-4 bg-[#0a192f] text-gray-300'>
@@ -24,11 +32,28 @@ const Navbar = () => {
                             Home
                         </Link>
                     </li>
-                    <li>
-                        <Link to='/signin' className='mx-10 hover:border-b-2 border-green-600'>
-                            Sign In
-                        </Link>
-                    </li>
+                    {
+                        user ?
+                            <>
+                                <li>
+                                    <Link className='mx-3'>
+                                        <span className='text-green-600'>Hello,</span> {user?.username}
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link onClick={handleLogout} className='mx-3 hover:border-b-2 border-green-600'>
+                                        Sign Out
+                                    </Link>
+                                </li>
+                            </>
+                            :
+                            <li>
+                                <Link to='/signin' className='mx-3 hover:border-b-2 border-green-600'>
+                                    Sign In
+                                </Link>
+                            </li>
+                    }
+
 
                 </ul>
             </div>

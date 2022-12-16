@@ -4,6 +4,7 @@ import AllPost from '../AllPost/AllPost';
 
 
 const Home = () => {
+
     return (
         <div>
             <AddPost></AddPost>
@@ -13,4 +14,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Home; 

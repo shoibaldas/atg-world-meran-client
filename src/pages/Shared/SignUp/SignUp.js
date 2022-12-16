@@ -16,7 +16,7 @@ const SignUp = () => {
     } = useForm({
         mode: "onChange",
         defaultValues: {
-            userName: "",
+            username: "",
             email: "",
             password: "",
             confirmPassword: ""
@@ -62,8 +62,8 @@ const SignUp = () => {
                     <div className='flex flex-col'>
                         <div className='form-control flex flex-col w-full max-w-xs'>
                             <label className='label'><span className='label-text font-semibold'>Username <span className='text-red-500'>*</span></span></label>
-                            <input type="text" {...register("userName", { required: "Email is required" })} placeholder='Your Full Name' className='rounded-md py-1 px-2 border border-gray-500' />
-                            {errors.userName && <p className='text-red-600'>{errors.userName?.message}</p>}
+                            <input type="text" {...register("username", { required: "Email is required" })} placeholder='Your Full Name' className='rounded-md py-1 px-2 border border-gray-500' />
+                            {errors.username && <p className='text-red-600'>{errors.username?.message}</p>}
                         </div>
                         <div className='form-control flex flex-col w-full max-w-xs'>
                             <label className='label'><span className='label-text font-semibold'>Email <span className='text-red-500'>*</span></span></label>
