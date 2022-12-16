@@ -5,7 +5,6 @@
 /.pnp
 .pnp.js
 AddComment
-DeleteConfirmationModal
 EditPostContentModal
 # testing
 /coverage

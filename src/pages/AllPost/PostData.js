@@ -4,7 +4,7 @@ import { AiOutlineLike, AiOutlineComment } from "react-icons/ai";
 import img from '../../assets/logo/logo.png';
 
 const PostData = ({ post, setEditPost, setDeletePost }) => {
-    const { _id, username, email, postContent } = post;
+    const { username, email, postContent } = post;
 
     return (
         <div>
