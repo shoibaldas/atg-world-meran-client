@@ -1,6 +1,7 @@
 import Home from "../../pages/Home/Home";
 import SignIn from "../../pages/Shared/SignIn/SignIn";
 import SignUp from "../../pages/Shared/SignUp/SignUp";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const { createBrowserRouter } = require("react-router-dom");
 const { default: Main } = require("../../layout/Main");
@@ -12,7 +13,11 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Home></Home>
+                element: <SignIn></SignIn>
+            },
+            {
+                path: '/home',
+                element: <PrivateRoute><Home></Home></PrivateRoute>
             },
             {
                 path: '/signin',

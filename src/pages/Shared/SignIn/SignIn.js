@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import ForgetPasswordModal from '../ForgetPasswordModal/ForgetPasswordModal';
+import { AuthContext } from '../../../context/AuthProvider';
 
 const SignIn = () => {
+    const { signIn, setSignIn } = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
     const [resetPassword, setResetPassword] = useState(false);
 
@@ -25,7 +27,7 @@ const SignIn = () => {
     });
 
     const onSubmit = (data) => {
-        fetch("http://localhost:5000/api/v1/signin", {
+        fetch("https://atg-world-mern-server.vercel.app/api/v1/signin", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -36,6 +38,7 @@ const SignIn = () => {
             .then((data) => {
                 console.log("Success:", data);
                 if (data.success) {
+                    setSignIn(!signIn);
                     localStorage.setItem("user", JSON.stringify(data.results));
                     toast.success("Login Successfully!");
                     navigate("/");

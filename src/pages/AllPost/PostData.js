@@ -7,12 +7,14 @@ const PostData = ({ post, setEditPost, setDeletePost }) => {
     const { username, email, postContent } = post;
 
     return (
-        <div>
+        <div className="my-4 max-w-screen-sm mx-auto p-4 rounded-md bg-gray-50 hadow-lg">
             <div className='my-2 ml-3 flex justify-between items-center'>
                 <div className="flex items-center space-x-2">
                     <img className="w-10 bg-black py-4 rounded-full" src={img} alt="" />
-                    <h2 className="text-gray-800 font-bold cursor-pointer">{username}</h2>
-                    <p>{email}</p>
+                    <div>
+                        <h2 className="text-gray-800 font-bold cursor-pointer">{username}</h2>
+                        <p className='text-sm'>{email}</p>
+                    </div>
                 </div>
                 <div className="dropdown dropdown-left">
                     <label tabIndex={0} className='cursor-pointer'><i className="fa-solid fa-ellipsis"></i></label>

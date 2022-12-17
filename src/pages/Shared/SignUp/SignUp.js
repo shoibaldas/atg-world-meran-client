@@ -24,7 +24,7 @@ const SignUp = () => {
     });
 
     const onSubmit = (data) => {
-        fetch("http://localhost:5000/api/v1/signup", {
+        fetch("https://atg-world-mern-server.vercel.app/api/v1/signup", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

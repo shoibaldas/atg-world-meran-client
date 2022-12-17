@@ -29,7 +29,7 @@ const Navbar = () => {
             <div>
                 <ul className='hidden md:flex'>
                     <li className=''>
-                        <Link to='/' className='hover:border-b-2 border-green-600'>
+                        <Link to='/home' className='hover:border-b-2 border-green-600'>
                             Home
                         </Link>
                     </li>
@@ -76,7 +76,7 @@ const Navbar = () => {
                     <img src={Logo} alt='Logo' style={{ width: '200px' }} />
                 </div>
                 <li className='py-4 text-2xl'>
-                    <Link onClick={handleClick} to='/'>
+                    <Link onClick={handleClick} to='/home'>
                         Home
                     </Link>
                 </li>

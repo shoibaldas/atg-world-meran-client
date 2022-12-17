@@ -14,7 +14,7 @@ const EditPostContentModal = ({ editPost, setEditPost }) => {
         }
 
 
-        fetch(`http://localhost:5000/api/v1/edit-post/${editPost?._id}`, {
+        fetch(`https://atg-world-mern-server.vercel.app/api/v1/edit-post/${editPost?._id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

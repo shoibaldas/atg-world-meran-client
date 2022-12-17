@@ -29,7 +29,7 @@ const AddPost = () => {
         // const time = new Date().toLocaleTimeString();
         // const newDateTime = `${date} ${time}`;
 
-        fetch("http://localhost:5000/api/v1/addPost", {
+        fetch("https://atg-world-mern-server.vercel.app/api/v1/addPost", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

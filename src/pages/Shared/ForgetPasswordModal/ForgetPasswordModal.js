@@ -21,7 +21,7 @@ const ForgetPasswordModal = ({ visible, onClose }) => {
             password: password
         }
 
-        fetch("http://localhost:5000/api/v1/forget-password", {
+        fetch("https://atg-world-mern-server.vercel.app/api/v1/forget-password", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
