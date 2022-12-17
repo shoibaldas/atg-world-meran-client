@@ -8,14 +8,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider';
 
 const Navbar = () => {
-    const { user } = useContext(AuthContext);
     const navigate = useNavigate();
+    const { user, logout, setSignIn, signIn } = useContext(AuthContext);
     const [nav, setNav] = useState(false);
     const handleClick = () => setNav(!nav);
 
     const handleLogout = () => {
-        localStorage.removeItem("user");
-        navigate("/");
+        setSignIn(!signIn);
+        logout();
+        navigate('/');
     };
 
     return (
@@ -33,7 +34,7 @@ const Navbar = () => {
                         </Link>
                     </li>
                     {
-                        user ?
+                        user && user ?
                             <>
                                 <li>
                                     <Link className='mx-3'>
@@ -87,7 +88,7 @@ const Navbar = () => {
 
             </ul>
 
-        </div>
+        </div >
     );
 };
 
