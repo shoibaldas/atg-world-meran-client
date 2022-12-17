@@ -4,8 +4,10 @@ import EditPostContentModal from '../Shared/EditPostContentModal/EditPostContent
 import toast from 'react-hot-toast';
 import PostData from './PostData';
 import Loading from '../Shared/Loading/Loading';
+import Comments from '../Comments/Comments';
+import { useLoaderData } from 'react-router-dom';
 
-const AllPost = () => {
+const AllPost = ({ id }) => {
     const [spinner, setSpinner] = useState();
     const [editPost, setEditPost] = useState(null);
     const [postData, setPostData] = useState(true);
@@ -26,6 +28,31 @@ const AllPost = () => {
                 }
             })
     }, [spinner])
+
+    const { contents } = useLoaderData();
+
+    const [reviews, setReviews] = useState();
+    const [fill, setFill] = useState([]);
+    const [feeds, setFeeds] = useState(true);
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/api/v1/comments`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                setReviews(data?.results)
+                if (reviews) {
+                    const reviewAll = reviews.filter(rev => rev.postId === contents._id)
+                    setFill(reviewAll);
+                    setSpinner(false);
+                }
+
+            })
+    }, [reviews, feeds, contents._id])
 
     const handleDeletePost = (post) => {
         fetch(`https://atg-world-mern-server.vercel.app/api/v1/delete-post/${post._id}`, {
@@ -78,6 +105,9 @@ const AllPost = () => {
                     closeModal={closeModal}
                 >
                 </DeleteConfirmationModal>
+            }
+            {
+                fill?.map(feed => <Comments key={feed._id} feed={feed}></Comments>)
             }
 
         </div>

@@ -4,7 +4,7 @@ import { AiOutlineLike, AiOutlineComment } from "react-icons/ai";
 import img from '../../assets/logo/logo.png';
 
 const PostData = ({ post, setEditPost, setDeletePost }) => {
-    const { username, email, postContent } = post;
+    const { _id, username, email, postContent } = post;
 
     return (
         <div className="my-4 max-w-screen-sm mx-auto p-4 rounded-md bg-gray-50 hadow-lg">
@@ -48,7 +48,7 @@ const PostData = ({ post, setEditPost, setDeletePost }) => {
                     <span className='mx-1 text-md font-semibold'>Comment</span>
                 </div>
             </div>
-            <AddComment></AddComment>
+            <AddComment id={_id}></AddComment>
         </div>
     );
 };

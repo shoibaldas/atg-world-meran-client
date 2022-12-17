@@ -30,7 +30,7 @@ const Navbar = () => {
                 <ul className='hidden md:flex'>
                     <li className=''>
                         <Link to='/home' className='hover:border-b-2 border-green-600'>
-                            Home
+                            Feed
                         </Link>
                     </li>
                     {
@@ -77,7 +77,7 @@ const Navbar = () => {
                 </div>
                 <li className='py-4 text-2xl'>
                     <Link onClick={handleClick} to='/home'>
-                        Home
+                        Feed
                     </Link>
                 </li>
                 <li className='py-4 text-2xl'>
